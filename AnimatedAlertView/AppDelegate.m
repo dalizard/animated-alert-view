@@ -40,6 +40,12 @@
 
     [self.window addSubview:alertView];
 
+    // Fade in the grey overlay and alert view
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        overlayView.alpha = 0.3f;
+        alertView.alpha = 1.0f;
+    } completion:NULL];
+
     return YES;
 }
 
