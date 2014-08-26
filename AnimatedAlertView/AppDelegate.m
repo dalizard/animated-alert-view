@@ -16,6 +16,30 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+
+    UIView *overlayView = [[UIView alloc] initWithFrame:self.window.bounds];
+    overlayView.backgroundColor = [UIColor blackColor];
+    overlayView.alpha = 0.0f;
+    [self.window addSubview:overlayView];
+
+    CGFloat alertDimension = 250;
+    CGRect alertViewFrame = CGRectMake(
+        self.window.bounds.size.width/2 - alertDimension/2,
+        self.window.bounds.size.height/2 - alertDimension/2,
+        alertDimension, alertDimension);
+
+    UIView *alertView = [[UIView alloc] initWithFrame:alertViewFrame];
+
+    alertView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"alert_box"]];
+    alertView.alpha = 0.0f;
+    alertView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+    alertView.layer.cornerRadius = 10;
+    alertView.layer.shadowColor = [UIColor blackColor].CGColor;
+    alertView.layer.shadowOffset = CGSizeMake(0, 5);
+    alertView.layer.shadowRadius = 10.0f;
+
+    [self.window addSubview:alertView];
+
     return YES;
 }
 
