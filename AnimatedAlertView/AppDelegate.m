@@ -41,22 +41,44 @@
 
     [self.window addSubview:alertView];
 
-    // Fade in the grey overlay and alert view
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        overlayView.alpha = 0.3f;
-        alertView.alpha = 1.0f;
-    } completion:NULL];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // Fade in the grey overlay and alert view
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            overlayView.alpha = 0.3f;
+            alertView.alpha = 1.0f;
+        } completion:NULL];
 
-    // Scale-animate in the alert view
-    JNWSpringAnimation *scale = [JNWSpringAnimation animationWithKeyPath:@"transform.scale"];
-    scale.damping = 14;
-    scale.stiffness = 14;
-    scale.mass = 1;
-    scale.fromValue = @(1.2);
-    scale.toValue = @(1.0);
+        // Scale-animate in the alert view
+        JNWSpringAnimation *scale = [JNWSpringAnimation animationWithKeyPath:@"transform.scale"];
+        scale.damping = 14;
+        scale.stiffness = 14;
+        scale.mass = 1;
+        scale.fromValue = @(1.2);
+        scale.toValue = @(1.0);
 
-    [alertView.layer addAnimation:scale forKey:scale.keyPath];
-    alertView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        [alertView.layer addAnimation:scale forKey:scale.keyPath];
+        alertView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    });
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // Fade out the grey overlay and alert view
+        [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            overlayView.alpha = 0.0f;
+            alertView.alpha = 0.0f;
+        } completion:NULL];
+
+        // Scale-animate out the alert view
+        JNWSpringAnimation *scaleOut = [JNWSpringAnimation animationWithKeyPath:@"transform.scale"];
+        scaleOut.damping = 11;
+        scaleOut.stiffness = 11;
+        scaleOut.mass = 1;
+        scaleOut.fromValue = @(1.0);
+        scaleOut.toValue = @(0.7);
+
+        [alertView.layer addAnimation:scaleOut forKey:scaleOut.keyPath];
+        alertView.transform = CGAffineTransformMakeScale(0.7, 0.7);
+
+    });
 
     return YES;
 }
