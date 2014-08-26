@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <JNWSpringAnimation.h>
 
 @implementation AppDelegate
 
@@ -45,6 +46,17 @@
         overlayView.alpha = 0.3f;
         alertView.alpha = 1.0f;
     } completion:NULL];
+
+    // Scale-animate in the alert view
+    JNWSpringAnimation *scale = [JNWSpringAnimation animationWithKeyPath:@"transform.scale"];
+    scale.damping = 14;
+    scale.stiffness = 14;
+    scale.mass = 1;
+    scale.fromValue = @(1.2);
+    scale.toValue = @(1.0);
+
+    [alertView.layer addAnimation:scale forKey:scale.keyPath];
+    alertView.transform = CGAffineTransformMakeScale(1.0, 1.0);
 
     return YES;
 }
