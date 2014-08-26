@@ -1,0 +1,10 @@
+PODS:
+  - JNWSpringAnimation (0.5)
+
+DEPENDENCIES:
+  - JNWSpringAnimation (~> 0.5)
+
+SPEC CHECKSUMS:
+  JNWSpringAnimation: 823b06c4e6a6a2aa1be19f68ce48d67f63c0f0e0
+
+COCOAPODS: 0.33.1
